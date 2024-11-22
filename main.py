@@ -31,8 +31,7 @@ def main():
     
     #region Bucle principal del juego
     
-    while palabras_adivinadas < 3 or intentos_partidas_perdidas < 3:
-        puntuacion = 0
+    while palabras_adivinadas < 3 and intentos_partidas_perdidas < 3:
         dificultad = pedir_dificultad("Que dificultad quiere jugar ? 5 / 6 / 7 : ","Porfavor ingrese 5, 6 o 7")
         palabra_generada = obtener_palabra(palabras_normalizadas,dificultad)
         matriz = generar_matriz(palabra_generada,intentos)
@@ -42,20 +41,23 @@ def main():
         
         puntuacion_modificada = jugar(palabra_generada, tupla, usos_comodines, matriz, intentos)
         
-
         tiempo_final = time.time()
         tiempo_rondas.append(tiempo_final - tiempo_inicio)
         lista_puntuacion.append(puntuacion_modificada)
         #endregion
-    
         print(puntuacion_modificada)
-        validar_estado(puntuacion_modificada, intentos_partidas_perdidas, palabras_adivinadas)
-        mostrar_matriz(matriz)
+        if validar_estado(puntuacion_modificada) :
+            palabras_adivinadas += 1
+        else:
+            intentos_partidas_perdidas += 1 
+        print(palabras_adivinadas)
+        print(intentos_partidas_perdidas)
+        #mostrar_matriz(matriz)
         os.system("pause")
         os.system("cls")
     #endregion
-
-    guardar_puntuacion(nombre_ingresado,tiempo_rondas,palabras_adivinadas,puntaje_total,tiempo_total)
+    
+    guardar_puntuacion(tiempo_rondas,palabras_adivinadas,lista_puntuacion)
     os.system("pause")
 
 

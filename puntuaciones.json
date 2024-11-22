@@ -11,5 +11,11 @@
         "contador_victorias": 5,
         "puntuacion": 580,
         "tiempo_total": 14.330320119857788
+    },
+    {
+        "nombre": "vic",
+        "partidas_jugadas": 3,
+        "contador_victorias": 3,
+        "tiempo_promeedio": 2.6810901959737143
     }
 ]

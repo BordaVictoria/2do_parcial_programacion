@@ -124,10 +124,10 @@ def pedir_dificultad (mensaje,mensaje_error):
 #         archivo.write(",")
         
 # import json   
-def guardar_puntuacion(nombre: str, tiempo_rondas: list, contador_victorias: int, puntuacion: int, tiempo_total: int):
+def guardar_puntuacion( tiempo_rondas: list, contador_victorias: int,lista_puntuacion : list):
     tiempo_total = sumar_lista(tiempo_rondas)
     puntaje_total = sumar_lista(lista_puntuacion)
-    puntaje_total = puntuar_por_tiempo(tiempo_total, palabras_adivinadas, puntaje_total)
+    puntaje_total = puntuar_por_tiempo(tiempo_total, contador_victorias, puntaje_total)
     nombre_ingresado = input("Ingrese su nombre: ")
     try:
         with open("puntuaciones.json", "r", encoding="utf-8") as archivo:
@@ -135,19 +135,21 @@ def guardar_puntuacion(nombre: str, tiempo_rondas: list, contador_victorias: int
     except (FileNotFoundError, json.JSONDecodeError):
         puntuaciones = []
 
-    puntuaciones.append({"nombre": nombre, "partidas_jugadas": len(tiempo_rondas), "contador_victorias": contador_victorias, "puntuacion": puntuacion, "tiempo_promeedio": tiempo_total / len(tiempo_rondas)})
+    puntuaciones.append({"nombre": nombre_ingresado, "partidas_jugadas": len(tiempo_rondas), "contador_victorias": contador_victorias, "tiempo_promeedio": tiempo_total / len(tiempo_rondas)})
 
     with open("puntuaciones.json", "w", encoding="utf-8") as archivo:
         json.dump(puntuaciones, archivo, indent=4, ensure_ascii=False)
             
 
-def validar_estado(puntuacion, intentos_partidas_perdidas, palabras_adivinadas):
+def validar_estado(puntuacion):
     if puntuacion > 0:
         print("GANASTE PIPIIII")
-        palabras_adivinadas += 1
+        flag = True
     else:
         print("PERDISTE CORNETA")
-        intentos_partidas_perdidas += 1
+        flag = False
+    return flag    
+    
 
 
 

@@ -62,7 +62,6 @@ def modificar_puntuacion(validacion: bool, palabra: dict, intentos_actuales: int
                 puntuacion += 100
                 if intentos > 1:
                     puntuacion -= 20 * intentos
-
     return puntuacion
                     
 def puntuar_por_tiempo(tiempo_total: int, contador_victorias: int, puntuacion: int):
