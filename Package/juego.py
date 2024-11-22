@@ -1,5 +1,6 @@
 import random
 from Package.funciones import *
+import os
 
 def jugar(palabra_generada, tupla, usos_comodines, matriz, intentos):
     intentos_actuales = 0
@@ -10,6 +11,7 @@ def jugar(palabra_generada, tupla, usos_comodines, matriz, intentos):
         
         validacion = verificar_palabra(palabra_ingresada, palabra_generada, matriz,intentos_actuales)
         intentos_actuales += 1
+        os.system("cls")
     salida = modificar_puntuacion(validacion, palabra_generada, intentos_actuales)
     return salida
 

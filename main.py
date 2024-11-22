@@ -56,8 +56,7 @@ def main():
         os.system("pause")
         os.system("cls")
     #endregion
-    
-    guardar_puntuacion(tiempo_rondas,palabras_adivinadas,lista_puntuacion)
+    guardar_puntuacion(tiempo_rondas,palabras_adivinadas,lista_puntuacion, usos_comodines)
     os.system("pause")
 
 

@@ -114,20 +114,11 @@ def pedir_dificultad (mensaje,mensaje_error):
             print(mensaje_error)    
             
             
-# def guardar_puntuacion (nombre, tiempo_rondas,palabras_adivinadas,puntaje_total,tiempo_total):
-    
-#     dato = {}
-#     dato ["Partida"] = [{"jugador": nombre, "partidas_jugadas": len(tiempo_rondas), "victorias": palabras_adivinadas, "tiempo_promedio": tiempo_total / len(tiempo_rondas), "puntaje_total": puntaje_total }]
-#     with open ("puntuaciones.json","a") as archivo :
-        
-#         json.dump(dato,archivo,indent=4)
-#         archivo.write(",")
-        
-# import json   
-def guardar_puntuacion( tiempo_rondas: list, contador_victorias: int,lista_puntuacion : list):
+def guardar_puntuacion( tiempo_rondas: list, contador_victorias: int,lista_puntuacion : list, usos_comodines: list):
     tiempo_total = sumar_lista(tiempo_rondas)
     puntaje_total = sumar_lista(lista_puntuacion)
     puntaje_total = puntuar_por_tiempo(tiempo_total, contador_victorias, puntaje_total)
+    puntaje_total = restar_puntuacion_comodines(puntaje_total, usos_comodines)
     nombre_ingresado = input("Ingrese su nombre: ")
     try:
         with open("puntuaciones.json", "r", encoding="utf-8") as archivo:
@@ -135,7 +126,7 @@ def guardar_puntuacion( tiempo_rondas: list, contador_victorias: int,lista_puntu
     except (FileNotFoundError, json.JSONDecodeError):
         puntuaciones = []
 
-    puntuaciones.append({"nombre": nombre_ingresado, "partidas_jugadas": len(tiempo_rondas), "contador_victorias": contador_victorias, "tiempo_promeedio": tiempo_total / len(tiempo_rondas)})
+    puntuaciones.append({"nombre": nombre_ingresado, "partidas_jugadas": len(tiempo_rondas), "contador_victorias": contador_victorias, "tiempo_promeedio": tiempo_total / len(tiempo_rondas), "puntaje_total": puntaje_total})
 
     with open("puntuaciones.json", "w", encoding="utf-8") as archivo:
         json.dump(puntuaciones, archivo, indent=4, ensure_ascii=False)
@@ -151,6 +142,11 @@ def validar_estado(puntuacion):
     return flag    
     
 
-
-
-    
+def restar_puntuacion_comodines(puntuacion, usos_comodines):
+    if usos_comodines[0] == 1:
+        puntuacion -= 15
+    if usos_comodines[1] == 1:
+        puntuacion -= 25
+    if usos_comodines[2] == 1: 
+        puntuacion -= 10
+    return puntuacion
