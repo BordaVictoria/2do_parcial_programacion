@@ -17,5 +17,19 @@
         "partidas_jugadas": 3,
         "contador_victorias": 3,
         "tiempo_promeedio": 2.6810901959737143
+    },
+    {
+        "nombre": "Fabi",
+        "partidas_jugadas": 6,
+        "contador_victorias": 5,
+        "tiempo_promeedio": 5.015506784121196,
+        "puntaje_total": 425
+    },
+    {
+        "nombre": "Fabi",
+        "partidas_jugadas": 5,
+        "contador_victorias": 5,
+        "tiempo_promeedio": 5.215100574493408,
+        "puntaje_total": 300
     }
 ]

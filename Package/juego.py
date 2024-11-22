@@ -7,7 +7,7 @@ def jugar(palabra_generada, tupla, usos_comodines, matriz, intentos):
     validacion = False
     while intentos_actuales < intentos and not validacion:
         mostrar_matriz(matriz)
-        palabra_ingresada = pedir_palabra("Ingrese una palabra: ", "Ingrese la cantidad de carateres correspondientes",palabra_generada,tupla, usos_comodines)
+        palabra_ingresada = pedir_palabra("Ingrese una palabra: ", "Ingrese la cantidad de carateres correspondientes",palabra_generada,tupla, usos_comodines, matriz, intentos_actuales)
         
         validacion = verificar_palabra(palabra_ingresada, palabra_generada, matriz,intentos_actuales)
         intentos_actuales += 1

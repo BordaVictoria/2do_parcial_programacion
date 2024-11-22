@@ -58,23 +58,24 @@ def verificar_si_existe_la_palabra(palabra: str, palabras: list):
         print("NO EXISTE LA PALABRA GORREADO")
     return validacion
 
-def mostrar_pista (pista: str, palabra: dict, tupla_pistas: tuple, intentos_comodines: list):
+def mostrar_pista (pista: str, palabra: dict, tupla_pistas: tuple, intentos_comodines: list, matriz: list, intentos_actuales: int):
     if pista == tupla_pistas[0]:
         print(palabra["continente"])
     elif pista == tupla_pistas[1]:
         letra_random = random.choice(palabra["pais"])
         indice = palabra["pais"].index(letra_random)
-        print(letra_random, " en la posicion ", indice + 1)
+        matriz[intentos_actuales][indice] = f"\033[32m{letra_random}\033[0m"
+        mostrar_matriz(matriz)
     elif pista == tupla_pistas[2]:
         print(palabra["comida"])
     intentos_comodines[tupla_pistas.index(pista)] = 1
 
-def pedir_palabra (mensaje, mensaje_error, palabra, pistas_tupla: tuple, intentos_comodines: list):
+def pedir_palabra (mensaje, mensaje_error, palabra, pistas_tupla: tuple, intentos_comodines: list, matriz, intentos_actuales: int):
     while True :
         palabra_ingresada = input(mensaje).lower()
         if palabra_ingresada in pistas_tupla:
             if intentos_comodines[pistas_tupla.index(palabra_ingresada)] == 0:
-                mostrar_pista(palabra_ingresada, palabra, pistas_tupla, intentos_comodines)
+                mostrar_pista(palabra_ingresada, palabra, pistas_tupla, intentos_comodines,matriz, intentos_actuales)
             else:
                 print("Ya usaste esa pista")
         elif len(palabra["pais"]) == len(palabra_ingresada) and palabra_ingresada.isalpha():
@@ -118,7 +119,9 @@ def guardar_puntuacion( tiempo_rondas: list, contador_victorias: int,lista_puntu
     tiempo_total = sumar_lista(tiempo_rondas)
     puntaje_total = sumar_lista(lista_puntuacion)
     puntaje_total = puntuar_por_tiempo(tiempo_total, contador_victorias, puntaje_total)
+    print(f"Tu puntaje total es {puntaje_total}")
     puntaje_total = restar_puntuacion_comodines(puntaje_total, usos_comodines)
+    print(f"Tu puntaje total despues de restar los comodines es {puntaje_total}")
     nombre_ingresado = input("Ingrese su nombre: ")
     try:
         with open("puntuaciones.json", "r", encoding="utf-8") as archivo:
