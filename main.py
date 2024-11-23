@@ -59,11 +59,12 @@ def main():
 
 def main_juego():
     pg.init()
-     
+    reloj = pg.time.Clock()
     tamaño_ventana = (700, 400)
     ventana = pg.display.set_mode(tamaño_ventana)
     pg.display.set_caption("Palabrini")
     fuente = ("Arial", 20)
+    fuente_matriz = ("Arial", 40)
     dificultad = 5
     intentos = 6
     palabras = obtener_lista_palabras("words.csv")
@@ -74,6 +75,8 @@ def main_juego():
     boton_modos = []
     posicion_botones_x = 100
     posicion_botones_y = 0
+    
+    b = False
     for i in range(3):
         boton = crear_boton(ventana, (posicion_botones_x, posicion_botones_y), (200, 100), f"{5+i} caracteres", fuente, colores["negro"], colores["blanco"])
         boton_modos.append(boton)
@@ -82,16 +85,27 @@ def main_juego():
         for evento in pg.event.get():
             if evento.type == pg.QUIT:
                 bandera_juego = False
+            if evento.type == pg.KEYDOWN:
+                b= True
+            if evento.type == pg.KEYUP:
+                b = False
         ventana.fill(colores["blanco"])
+        
         
         for i in range(len(boton_modos)):
             dibujar_boton(boton_modos[i])
-        mostrar_matriz(ventana, matriz, fuente, colores["negro"], colores["gris"])
+        for color in colores:
+            mostrar_matriz(ventana, matriz, fuente_matriz, colores["negro"], colores[color])
+            
+        if b:
+            matriz[0][1] = "o"
+            
+        
             
         
         
                 
-                
+        reloj.tick(20)
         pg.display.update()
     
     
